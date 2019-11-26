@@ -1,0 +1,3 @@
+# Photo Organizer License
+
+This is a sample license here...
