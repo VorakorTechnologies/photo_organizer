@@ -1,0 +1,14 @@
+dbengine: mongo
+dbconfig:
+    host: localhost
+    user: root
+    password: 'R@nd0mPa$swOrd!'
+    db: photo_organizer
+filesystem:
+    root_pictures_directory: c:\Users\Shaine Berube\Pictures
+    root_pictures_directory_name: Photo Organizer
+    search_directories:
+        - c:\Users\Shaine Berube\Pictures
+        - c:\Users\Shaine Berube\Desktop
+        - c:\Users\Shaine Berube\Documents
+        - c:\Users\Shaine Berube\Downloads
