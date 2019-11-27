@@ -29,5 +29,5 @@ class Config:
 
     def writeConfig(self, section, key, value):
         self.config[section][key] = value
-        with open("po_config.yml", "w") as ymlFile:
+        with open("./organizer/core/po_config.yml", "w") as ymlFile:
             ymldump(self.config, ymlFile, Dumper=Dumper)

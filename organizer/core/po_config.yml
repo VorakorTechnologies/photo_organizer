@@ -6,10 +6,42 @@ dbconfig:
     password: 'R@nd0mPa$swOrd!'
     db: photo_organizer
 filesystem:
-    root_pictures_directory: c:\Users\Shaine Berube\Pictures
-    root_pictures_directory_name: Photo Organizer
+    root_images_directory: c:\Users\Shaine Berube\Pictures
+    root_images_directory_name: Photo Organizer
+    root_videos_directory: c:\Users\Shaine Berube\Videos
+    root_videos_directory_name: Photo Organizer
+    root_audios_directory: c:\Users\Shaine Berube\Music
+    root_audios_directory_name: Photo Organizer
+    staging_directory: c:\Users\Shaine Berube\Documents\photo_organizer_staging
+    images_staging_dir_name: images
+    videos_staging_dir_name: videos
+    audios_staging_dir_name: audios
     search_directories:
         - c:\Users\Shaine Berube\Pictures
         - c:\Users\Shaine Berube\Desktop
         - c:\Users\Shaine Berube\Documents
         - c:\Users\Shaine Berube\Downloads
+    organize_videos: false
+    organize_audios: false
+    image_extensions:
+        - gif
+        - jpeg
+        - jpg
+        - png
+        - svg
+        - tif
+        - tiff
+    video_extensions:
+        - avi
+        - mkv
+        - m4v
+        - mov
+        - mp4
+        - mpg
+        - mpeg
+        - wmv
+    audio_extensions:
+        - mp3
+        - ogg
+        - wav
+        - wma

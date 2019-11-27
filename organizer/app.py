@@ -9,10 +9,16 @@ from .core.fileSystem import FileSystem
 class App:
     def __init__(self):
         super().__init__()
+        self.filesystem = FileSystem()
 
     def printFSSearchDirs(self):
-        filesystem = FileSystem()
-        filesystem.printSearchDirs()
+        self.filesystem.printSearchDirs()
+
+    def createStagingDirs(self):
+        self.filesystem.checkOrCreateStaging('images')
+
+    def addImageExtension(self):
+        self.filesystem.addSearchExtension('bmp', 'images')
 
 # This is the function the script is looking for when it goes to run, so DON'T remove it!
 
@@ -20,3 +26,5 @@ class App:
 def run():
     app = App()
     app.printFSSearchDirs()
+    app.createStagingDirs()
+    app.addImageExtension()
