@@ -12,14 +12,14 @@ class App:
         super().__init__()
         self.filesystem = FileSystem()
 
-    def printFileSystemProps(self):
-        self.filesystem.printPropValues()
+    # def printFileSystemProps(self):
+    #     self.filesystem.printPropValues()
 
-    def createStagingDirs(self):
-        self.filesystem.checkOrCreateStaging('images')
+    # def createStagingDirs(self):
+    #     self.filesystem.checkOrCreateStaging('images')
 
-    def removeStagingDirs(self):
-        self.filesystem.removeStagingDirs()
+    # def removeStagingDirs(self):
+    #     self.filesystem.removeStagingDirs()
 
     # def addImageExtension(self): # This was a demo to see if it worked, and it did
     #     self.filesystem.addSearchExtension('bmp', 'images')
@@ -29,8 +29,11 @@ class App:
 
 def run():
     app = App()
-    app.printFileSystemProps()
-    app.createStagingDirs()
-    time.sleep(10)
-    app.removeStagingDirs()
+    app.filesystem.printPropValues()
+    app.filesystem.checkVideos()
+    app.filesystem.checkAudios()
+    app.filesystem.printPropValues()
+    # app.createStagingDirs()
+    # time.sleep(10)
+    # app.removeStagingDirs()
     # app.addImageExtension()
