@@ -5,6 +5,7 @@ import time
 # URL reference for this project's file structure: https://dev.to/codemouse92/dead-simple-python-project-structure-and-imports-38c6
 # Use the following example command to run this module.
 # python.exe -m ~/Development/photo_organizer/organizer
+# & "C:/Users/Shaine Berube/AppData/Local/Programs/Python/Python38/python.exe" -m organizer
 
 
 class App:
