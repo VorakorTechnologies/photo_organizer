@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 from .core.fileSystem import FileSystem
+import time
 
 # URL reference for this project's file structure: https://dev.to/codemouse92/dead-simple-python-project-structure-and-imports-38c6
 # Use the following example command to run this module.
@@ -17,8 +18,11 @@ class App:
     def createStagingDirs(self):
         self.filesystem.checkOrCreateStaging('images')
 
-    def addImageExtension(self):
-        self.filesystem.addSearchExtension('bmp', 'images')
+    def removeStagingDirs(self):
+        self.filesystem.removeStagingDirs()
+
+    # def addImageExtension(self): # This was a demo to see if it worked, and it did
+    #     self.filesystem.addSearchExtension('bmp', 'images')
 
 # This is the function the script is looking for when it goes to run, so DON'T remove it!
 
@@ -27,4 +31,6 @@ def run():
     app = App()
     app.printFSSearchDirs()
     app.createStagingDirs()
-    app.addImageExtension()
+    time.sleep(10)
+    app.removeStagingDirs()
+    # app.addImageExtension()

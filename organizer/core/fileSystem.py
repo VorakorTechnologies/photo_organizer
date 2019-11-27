@@ -1,5 +1,6 @@
 from .config import Config
 import os
+import shutil
 from .common import InputError
 
 
@@ -32,6 +33,10 @@ class FileSystem:
         if not os.path.exists(self.staging_directory):
             os.makedirs(os.path.join(self.staging_directory,
                                      self.getTypeStagingDirName(mediaType)))
+
+    def removeStagingDirs(self):
+        if os.path.exists(self.staging_directory):
+            shutil.rmtree(self.staging_directory)
 
     def addSearchExtension(self, ext, mediaType):
         if mediaType == 'images':
