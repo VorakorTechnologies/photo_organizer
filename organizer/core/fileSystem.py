@@ -18,6 +18,10 @@ class FileSystem:
             "video_extensions", "filesystem")
         self.audio_extensions = self.config.getConfigValue(
             "audio_extensions", "filesystem")
+        self.search_videos = self.config.getConfigValue(
+            "organize_videos", "filesystem")
+        self.search_audios = self.config.getConfigValue(
+            "organize_audios", "filesystem")
 
     def getResolution(self, filename):
         """This function finds the resolution of the image file it is passed"""
@@ -25,6 +29,9 @@ class FileSystem:
 
     def printSearchDirs(self):
         print(self.search_directories)
+
+    def printPropValues(self):
+        print(self.__dict__)
 
     def getTypeStagingDirName(self, mediaType):
         return self.config.getConfigValue(mediaType + "_staging_dir_name", "filesystem")

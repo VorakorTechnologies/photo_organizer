@@ -12,8 +12,8 @@ class App:
         super().__init__()
         self.filesystem = FileSystem()
 
-    def printFSSearchDirs(self):
-        self.filesystem.printSearchDirs()
+    def printFileSystemProps(self):
+        self.filesystem.printPropValues()
 
     def createStagingDirs(self):
         self.filesystem.checkOrCreateStaging('images')
@@ -29,7 +29,7 @@ class App:
 
 def run():
     app = App()
-    app.printFSSearchDirs()
+    app.printFileSystemProps()
     app.createStagingDirs()
     time.sleep(10)
     app.removeStagingDirs()
