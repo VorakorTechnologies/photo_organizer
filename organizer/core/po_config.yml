@@ -1,47 +1,47 @@
 dbconfig:
-  db: photo_organizer
-  host: localhost
-  password: R@nd0mPa$swOrd!
-  user: root
+    db: photo_organizer
+    host: localhost
+    password: R@nd0mPa$swOrd!
+    user: root
 dbengine: mongo
 filesystem:
-  audio_extensions:
-  - mp3
-  - ogg
-  - wav
-  - wma
-  audios_staging_dir_name: audios
-  image_extensions:
-  - gif
-  - jpeg
-  - jpg
-  - png
-  - svg
-  - tif
-  - tiff
-  - bmp
-  images_staging_dir_name: images
-  organize_audios: false
-  organize_videos: false
-  root_audios_directory: c:\Users\Shaine Berube\Music
-  root_audios_directory_name: Photo Organizer
-  root_images_directory: c:\Users\Shaine Berube\Pictures
-  root_images_directory_name: Photo Organizer
-  root_videos_directory: c:\Users\Shaine Berube\Videos
-  root_videos_directory_name: Photo Organizer
-  search_directories:
-  - c:\Users\Shaine Berube\Pictures
-  - c:\Users\Shaine Berube\Desktop
-  - c:\Users\Shaine Berube\Documents
-  - c:\Users\Shaine Berube\Downloads
-  staging_directory: c:\Users\Shaine Berube\Documents\photo_organizer_staging
-  video_extensions:
-  - avi
-  - mkv
-  - m4v
-  - mov
-  - mp4
-  - mpg
-  - mpeg
-  - wmv
-  videos_staging_dir_name: videos
+    audio_extensions:
+        - mp3
+        - ogg
+        - wav
+        - wma
+    audios_staging_dir_name: audios
+    image_extensions:
+        - gif
+        - jpeg
+        - jpg
+        - png
+        - svg
+        - tif
+        - tiff
+        - bmp
+    images_staging_dir_name: images
+    organize_audios: false
+    organize_videos: false
+    root_audios_directory: c:\Users\Shaine Berube\Music
+    root_audios_directory_name: Photo Organizer
+    root_images_directory: c:\Users\Shaine Berube\Pictures
+    root_images_directory_name: Photo Organizer
+    root_videos_directory: c:\Users\Shaine Berube\Videos
+    root_videos_directory_name: Photo Organizer
+    search_directories:
+        - c:\Users\Shaine Berube\Pictures
+        - c:\Users\Shaine Berube\Desktop
+        - c:\Users\Shaine Berube\Documents
+        - c:\Users\Shaine Berube\Downloads
+    staging_directory: c:\Users\Shaine Berube\Documents\photo_organizer_staging
+    video_extensions:
+        - avi
+        - mkv
+        - m4v
+        - mov
+        - mp4
+        - mpg
+        - mpeg
+        - wmv
+    videos_staging_dir_name: videos
