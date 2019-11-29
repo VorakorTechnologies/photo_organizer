@@ -1,7 +1,10 @@
 from .config import Config
 import os
+import string
+import random
 import shutil
 from .common import InputError
+import hashlib
 
 
 class FileSystem:
@@ -118,6 +121,7 @@ class FileSystem:
     def findAllFiles(self, mediaType):
         print("Finding files by extension")
         files = []
+        print("Search Directories: %s" % self.search_directories)
         for dir in self.search_directories:
             if mediaType == 'images':
                 images = self.searchDirectory(dir, self.image_extensions)
@@ -137,9 +141,24 @@ class FileSystem:
     def searchDirectory(self, folder, extensions):
         print("Searching %s for extensions: %s" % (folder, extensions))
         mediaFiles = []
+        # Recursive without Os.walk?
+        # dirContents = os.listdir(folder)
+        # for item in dirContents:
+        #     if os.path.isfile(os.path.join(folder, item)):
+        #         print("File: %s" % item)
+        #         mediaFiles.append(os.path.join(folder, item))
+        #     else:
+        #         print("Folder: %s" % item)
+        #         mediaFiles.extend(self.search_directories(
+        #             os.path.join(folder, item), extensions))
+        # When trying to run this from a drive that is not C: we suddenly have problems reading other drives.
         for root, directories, files in os.walk(folder):
+            print("Files: %s" % files)
+            print("Root: %s" % root)
+            print("Directories: %s" % directories)
             for name in files:
-                filename, fileext = os.path.splitext(name)
+                print("File: %s" % name)
+                filename, fileext = os.path.splitext(name.lower())
                 if fileext[1:] in extensions:
                     mediaFiles.append(os.path.join(root, name))
         return mediaFiles
@@ -149,7 +168,9 @@ class FileSystem:
         mediaStagingDir = os.path.join(
             self.staging_directory, self.getTypeStagingDirName(mediaType))
         for f in files:
-            os.rename(f, os.path.join(mediaStagingDir, os.path.basename(f)))
+            filename, fileext = os.path.splitext(os.path.basename(f))
+            newFilename = self.generateRandomFilename(filename) + fileext
+            os.rename(f, os.path.join(mediaStagingDir, newFilename))
         for dir in self.search_directories:
             self.removeEmptyDirectories(dir)
         return
@@ -164,3 +185,15 @@ class FileSystem:
                 except OSError as ex:
                     print(ex)
         return
+
+    def generateRandomFilename(self, filename):
+        print("Generating a random filename")
+        hash = hashlib.sha224()
+        hash.update(filename.encode('utf-8'))
+        first = ''.join(random.choice(string.ascii_uppercase +
+                                      string.digits) for _ in range(6))
+        hash.update(first.encode('utf-8'))
+        second = ''.join(random.choice(
+            string.ascii_uppercase+string.digits) for _ in range(6))
+        hash.update(second.encode('utf-8'))
+        return hash.hexdigest()
