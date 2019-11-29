@@ -15,9 +15,7 @@ class App:
 
     def runScan(self):
         print("Running scan across specified search directories")
-        # self.filesystem.checkOrCreateStaging("images")
-        # files = self.filesystem.findAllFiles("images")
-        # self.filesystem.moveFilesToStaging(files, "images")
+        self.runImageScan()
 
     def runImageScan(self):
         self.filesystem.checkOrCreateStaging("images")
