@@ -24,19 +24,19 @@ filesystem:
     images_staging_dir_name: images
     organize_audios: false
     organize_videos: false
-    root_audios_directory: 'd:\Music'
+    root_audios_directory: 'c:\Users\Shaine Berube\Music'
     root_audios_directory_name: Photo Organizer
-    root_images_directory: 'd:\Pictures'
+    root_images_directory: 'c:\Users\Shaine Berube\Pictures'
     root_images_directory_name: Photo Organizer
-    root_videos_directory: 'd:\Videos'
+    root_videos_directory: 'c:\Users\Shaine Berube\Videos'
     root_videos_directory_name: Photo Organizer
     search_directories:
-        - 'd:\TempTest'
-        # - c:\Users\Shaine Berube\Pictures
+        # - 'd:\TempTest'
+        - 'c:\Users\Shaine Berube\Pictures'
         - 'c:\Users\Shaine Berube\Desktop'
-        # - c:\Users\Shaine Berube\Documents
-        # - c:\Users\Shaine Berube\Downloads
-    staging_directory: 'd:\photo_organizer_staging'
+        - 'c:\Users\Shaine Berube\Documents'
+        - 'c:\Users\Shaine Berube\Downloads'
+    staging_directory: 'c:\Users\Shaine Berube\Documents\photo_organizer_staging'
     video_extensions:
         - avi
         - mkv

@@ -15,13 +15,17 @@ class App:
 
     def runScan(self):
         print("Running scan across specified search directories")
-        self.runImageScan()
+        # self.runImageScan()
+        self.sortImages()
 
     def runImageScan(self):
         self.filesystem.checkOrCreateStaging("images")
         self.filesystem.checkOrCreatePhotoOrganizerFolder("images")
         files = self.filesystem.findAllFiles("images")
         self.filesystem.moveFilesToStaging(files, "images")
+
+    def sortImages(self):
+        self.filesystem.scanForAttributes("images")
 
     # def addImageExtension(self): # This was a demo to see if it worked, and it did
     #     self.filesystem.addSearchExtension('bmp', 'images')
@@ -31,12 +35,4 @@ class App:
 
 def run():
     app = App()
-    # app.filesystem.printPropValues()
-    # app.filesystem.checkVideos()
-    # app.filesystem.checkAudios()
-    # app.filesystem.printPropValues()
     app.runScan()
-    # app.createStagingDirs()
-    # time.sleep(10)
-    # app.removeStagingDirs()
-    # app.addImageExtension()

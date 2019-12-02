@@ -5,6 +5,8 @@ import random
 import shutil
 from .common import InputError
 import hashlib
+from PIL import Image, ExifTags
+import png
 
 
 class FileSystem:
@@ -81,7 +83,13 @@ class FileSystem:
 
     def removeStagingDirs(self):
         if os.path.exists(self.staging_directory):
-            shutil.rmtree(self.staging_directory)
+            self.removeEmptyDirectories(self.staging_directory)
+            try:
+                print("Trying to remove directory: %s" %
+                      self.staging_directory)
+                os.rmdir(self.staging_directory)
+            except OSError as ex:
+                print(ex)
         return
 
     def addSearchExtension(self, ext, mediaType):
@@ -168,9 +176,9 @@ class FileSystem:
         mediaStagingDir = os.path.join(
             self.staging_directory, self.getTypeStagingDirName(mediaType))
         for f in files:
-            filename, fileext = os.path.splitext(os.path.basename(f))
-            newFilename = self.generateRandomFilename(filename) + fileext
-            os.rename(f, os.path.join(mediaStagingDir, newFilename))
+            # filename, fileext = os.path.splitext(os.path.basename(f))
+            # newFilename = self.generateRandomFilename(filename) + fileext # Temporarily turning this off until we're ready for a more serious test
+            os.rename(f, os.path.join(mediaStagingDir, f))
         for dir in self.search_directories:
             self.removeEmptyDirectories(dir)
         return
@@ -197,3 +205,46 @@ class FileSystem:
             string.ascii_uppercase+string.digits) for _ in range(6))
         hash.update(second.encode('utf-8'))
         return hash.hexdigest()
+
+    def scanForAttributes(self, mediaType):
+        scan_dir = os.path.join(self.staging_directory,
+                                self.getTypeStagingDirName(mediaType))
+        images = os.listdir(scan_dir)
+        for image in images:
+            filename, fileext = os.path.splitext(image)
+            if fileext[1:] == 'jpg':
+                img_ts = self.getAttributesForJpg(
+                    os.path.join(scan_dir, image))
+                print("Image: %s, Timestamp: %s" %
+                      (os.path.join(scan_dir, image), img_ts))
+            elif fileext[1:] == 'png':
+                img_ts = self.getAttributesForPng(
+                    os.path.join(scan_dir, image))
+                print("Image: %s, Metadata: %s" %
+                      (os.path.join(scan_dir, image), img_ts))
+
+    def getAttributesForJpg(self, file):
+        print("Image: %s" % file)
+        image = Image.open(file)
+        exif = image._getexif()
+        for (k, v) in exif.items():
+            if ExifTags.TAGS.get(k) == 'DateTimeOriginal':
+                if v == None:
+                    return self.getAttributesForFile(file)
+                else:
+                    return v
+
+    def getAttributesForPng(self, file):
+        print("Image: %s" % file)
+        image = png.Reader(filename=file)
+        for chunkType, content in image.chunks():
+            print("Chunk Type: %s" % chunkType)
+            if chunkType == 'tEXt':
+                print("Chunk Content: %s" % content)
+        return self.getAttributesForFile(file)
+
+    def getAttributesForFile(self, file):
+        with os.scandir(file) as dir_entries:
+            for entry in dir_entries:
+                info = entry.stat()
+                print("Info: %s" % info)
