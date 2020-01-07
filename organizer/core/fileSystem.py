@@ -6,7 +6,6 @@ import shutil
 from .common import InputError
 import hashlib
 from PIL import Image, ExifTags
-import png
 
 
 class FileSystem:
@@ -23,10 +22,6 @@ class FileSystem:
             "video_extensions", "filesystem")
         self.audio_extensions = self.config.getConfigValue(
             "audio_extensions", "filesystem")
-
-    def getResolution(self, filename):
-        """This function finds the resolution of the image file it is passed"""
-        return filename
 
     def printSearchDirs(self):
         print(self.search_directories)
@@ -206,22 +201,33 @@ class FileSystem:
         hash.update(second.encode('utf-8'))
         return hash.hexdigest()
 
-    def scanForAttributes(self, mediaType):
-        scan_dir = os.path.join(self.staging_directory,
-                                self.getTypeStagingDirName(mediaType))
-        images = os.listdir(scan_dir)
-        for image in images:
-            filename, fileext = os.path.splitext(image)
-            if fileext[1:] == 'jpg':
-                img_ts = self.getAttributesForJpg(
-                    os.path.join(scan_dir, image))
-                print("Image: %s, Timestamp: %s" %
-                      (os.path.join(scan_dir, image), img_ts))
-            elif fileext[1:] == 'png':
-                img_ts = self.getAttributesForPng(
-                    os.path.join(scan_dir, image))
-                print("Image: %s, Metadata: %s" %
-                      (os.path.join(scan_dir, image), img_ts))
+    # Redoing this function, make it scan each file and get attributes before trying to edit / move it.
+    # media = [
+    #   {
+    #       file: random/path/to/file.jpg
+    #       creationDate: 10-01-2019 12:34:23
+    #       resolution: 1920x1080
+    #   }
+    # ]
+    def scanForAttributes(self, mediaType, files):
+        if files:
+            print("We passed in files!")
+        else:
+            scan_dir = os.path.join(self.staging_directory,
+                                    self.getTypeStagingDirName(mediaType))
+            images = os.listdir(scan_dir)
+            for image in images:
+                filename, fileext = os.path.splitext(image)
+                if fileext[1:] == 'jpg':
+                    img_ts = self.getAttributesForJpg(
+                        os.path.join(scan_dir, image))
+                    print("Image: %s, Timestamp: %s" %
+                          (os.path.join(scan_dir, image), img_ts))
+    #         elif fileext[1:] == 'png':
+    #             img_ts = self.getAttributesForPng(
+    #                 os.path.join(scan_dir, image))
+    #             print("Image: %s, Metadata: %s" %
+    #                   (os.path.join(scan_dir, image), img_ts))
 
     def getAttributesForJpg(self, file):
         print("Image: %s" % file)
@@ -233,15 +239,6 @@ class FileSystem:
                     return self.getAttributesForFile(file)
                 else:
                     return v
-
-    def getAttributesForPng(self, file):
-        print("Image: %s" % file)
-        image = png.Reader(filename=file)
-        for chunkType, content in image.chunks():
-            print("Chunk Type: %s" % chunkType)
-            if chunkType == 'tEXt':
-                print("Chunk Content: %s" % content)
-        return self.getAttributesForFile(file)
 
     def getAttributesForFile(self, file):
         with os.scandir(file) as dir_entries:
